@@ -3,6 +3,9 @@ import { useState } from "react";
 import Link from "next/link";
 import logo from "@/assets/rabfyLogo.png";
 import Image from "next/image";
+import { BsCart3 } from "react-icons/bs";
+import { GoHeart } from "react-icons/go";
+import { IoPersonOutline } from "react-icons/io5";
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -44,16 +47,19 @@ const Navbar = () => {
 
           <div className="flex items-center space-x-6">
             <Link
-              href="/signup"
-              className="text-[#4B4B53] transition-colors text-base font-medium"
+              href="/login"
+              className="border border-[#CECFD3] rounded-full p-2"
             >
-              Sign Up
+              <GoHeart className="text-[#4B4B53] text-2xl" />
             </Link>
             <Link
-              href="/login"
-              className="bg-black text-white px-6 py-2 rounded-md hover:bg-gray-900 transition-all"
+              href="/cart"
+              className="border border-[#CECFD3] rounded-full p-2"
             >
-              Login
+              <BsCart3 className="text-[#4B4B53] text-2xl" />
+            </Link>
+            <Link href="/" className="border border-[#CECFD3] rounded-full p-2">
+              <IoPersonOutline className="text-[#4B4B53] text-2xl" />
             </Link>
           </div>
         </div>
@@ -102,16 +108,19 @@ const Navbar = () => {
 
           <div className="flex justify-center items-center space-x-6">
             <Link
-              href="/signup"
-              className="text-[#4B4B53] transition-colors text-base font-medium"
+              href="/login"
+              className="border border-[#CECFD3] rounded-full p-2"
             >
-              Sign Up
+              <GoHeart className="text-[#4B4B53] text-2xl" />
             </Link>
             <Link
-              href="/login"
-              className="bg-black text-white px-6 py-2 rounded-md hover:bg-gray-900 transition-all"
+              href="/cart"
+              className="border border-[#CECFD3] rounded-full p-2"
             >
-              Login
+              <BsCart3 className="text-[#4B4B53] text-2xl" />
+            </Link>
+            <Link href="/" className="border border-[#CECFD3] rounded-full p-2">
+              <IoPersonOutline className="text-[#4B4B53] text-2xl" />
             </Link>
           </div>
         </div>

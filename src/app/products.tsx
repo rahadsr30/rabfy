@@ -94,7 +94,7 @@ export default function Products() {
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-y-6 lg:gap-y-10 gap-x-6 mt-7 lg:mt-14">
           {products.map((product) => (
-            <div key={product.id}>
+            <Link key={product.id} href={`/products/${product.id}`}>
               <div className="bg-[#FAFAFA] p-4 mx-auto w-full rounded-xl">
                 <Image
                   src={product.image}
@@ -133,13 +133,13 @@ export default function Products() {
                   {likedProducts.includes(product.id) ? "❤️" : "🤍"}
                 </button>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
 
         <div className="flex justify-center mt-10">
           <Link
-            href=""
+            href="/products"
             className="bg-black text-white px-6 py-2 rounded-md hover:bg-gray-900 transition-all"
           >
             View All

@@ -7,6 +7,7 @@ import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import product from "@/assets/productImg.png";
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 import { FiFilter } from "react-icons/fi";
+import Link from "next/link";
 
 const allProducts = [
   {
@@ -240,7 +241,7 @@ export default function ProductPage() {
       <div className="wrapper mx-auto py-10">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-y-6 lg:gap-y-10 gap-x-6 mt-7 lg:mt-14">
           {currentProducts.map((product) => (
-            <div key={product.id}>
+            <Link href={`/products/${product.id}`} key={product.id}>
               <div className="bg-[#FAFAFA] p-4 mx-auto w-full rounded-xl">
                 <Image
                   src={product.image}
@@ -269,12 +270,11 @@ export default function ProductPage() {
               </div>
 
               <div className="flex items-center justify-between mt-4">
-                <button className="border-2 border-black px-4 py-2 rounded-xl flex items-center gap-x-2 text-base font-medium text-black">
-                  Add to Cart
-                  <IoCartOutline className="size-5" />
+                <button className="border-2 border-black px-4 py-2 rounded-lg flex items-center gap-2 text-black hover:bg-black hover:text-white transition">
+                  Add to Cart <IoCartOutline className="size-5" />
                 </button>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
 

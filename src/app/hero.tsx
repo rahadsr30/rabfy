@@ -1,5 +1,5 @@
 "use client";
-import Navbar from "@/components/ui/navbar";
+
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import bannar1 from "@/assets/banner.png";
@@ -45,7 +45,6 @@ export default function Hero() {
   }, []);
   return (
     <header>
-      <Navbar />
       <div className="relative w-full overflow-hidden">
         <div
           className="flex transition-transform duration-700 ease-in-out"
