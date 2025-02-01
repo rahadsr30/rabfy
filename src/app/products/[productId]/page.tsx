@@ -430,7 +430,7 @@ export default function Page() {
                     <p className="font-medium text-lg text-gray-800">
                       {review.name}
                     </p>
-                    <p className="text-gray-600 text-sm">{review.timeAgo}</p>
+                    <p className="text-[#4B4B53] text-sm">{review.timeAgo}</p>
                   </div>
 
                   <div className="flex mt-2">
@@ -454,9 +454,9 @@ export default function Page() {
                     })}
                   </div>
 
-                  <p className="mt-2 text-gray-700">{review.review}</p>
+                  <p className="mt-2 text-[#4B4B53]">{review.review}</p>
 
-                  <div className="mt-3 flex gap-3">
+                  <div className="mt-3 flex flex-wrap gap-3">
                     {review.images.map((img, index) => (
                       <Image
                         key={index}
@@ -470,7 +470,7 @@ export default function Page() {
                   </div>
 
                   <div className="flex items-center justify-between mt-4">
-                    <p className="text-gray-600">
+                    <p className="text-[#4B4B53]">
                       Categories:
                       <span className="font-medium text-gray-800">
                         {" "}
@@ -479,7 +479,7 @@ export default function Page() {
                     </p>
                     <button
                       onClick={() => handleHelpfulClick(review.id)}
-                      className={`flex items-center gap-1 text-gray-600 ${
+                      className={`flex items-center gap-1 text-[#4B4B53] ${
                         helpfulVotes[review.id] ? "text-blue-500" : ""
                       }`}
                     >
