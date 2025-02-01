@@ -5,6 +5,8 @@ import { IoCartOutline } from "react-icons/io5";
 import { MdOutlineStar } from "react-icons/md";
 import product from "@/assets/productImg.png";
 import Link from "next/link";
+import { CiHeart } from "react-icons/ci";
+import { FcLike } from "react-icons/fc";
 
 const products = [
   {
@@ -130,7 +132,11 @@ export default function Products() {
                   onClick={() => toggleLike(product.id)}
                   className="text-2xl ml-4"
                 >
-                  {likedProducts.includes(product.id) ? "❤️" : "🤍"}
+                  {likedProducts.includes(product.id) ? (
+                    <FcLike />
+                  ) : (
+                    <CiHeart />
+                  )}
                 </button>
               </div>
             </Link>
