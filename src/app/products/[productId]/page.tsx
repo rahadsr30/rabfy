@@ -11,6 +11,7 @@ import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 import { IoCartOutline } from "react-icons/io5";
 import { AiOutlineLike } from "react-icons/ai";
 import { FaStar, FaRegStar, FaStarHalfAlt } from "react-icons/fa";
+import { MdKeyboardArrowRight } from "react-icons/md";
 import {
   HiOutlineLocationMarker,
   HiOutlineTruck,
@@ -72,21 +73,69 @@ const sections = [
 const reviews = [
   {
     id: 1,
-    name: "Rahad Ahmad",
+    name: "Mahmudul Hasan",
     rating: 5,
-    timeAgo: "1 week ago",
+    timeAgo: "1 hour ago",
     review:
-      "All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet.",
+      "Wonderful! I love this product. It's so comfortable and easy to wear.",
     images: [product, product, product],
+    categories: ["Shoes"],
   },
   {
     id: 2,
     name: "Riaz Ahmad",
     rating: 4.5,
+    timeAgo: "2 days ago",
+    review: "Wow! I love this product. It's so comfortable and easy to wear.",
+    images: [product, product, product, product],
+    categories: ["Dress"],
+  },
+  {
+    id: 3,
+    name: "Rokibul Hasan",
+    rating: 4.5,
     timeAgo: "1 week ago",
     review:
-      "All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet.",
-    images: [product, product, product],
+      "Exceeded expectations. I love this product. It's so comfortable and easy to wear.",
+    images: [product, product, product, product, product, product],
+    categories: ["Fresh Fruit", "Vegetables"],
+  },
+  {
+    id: 4,
+    name: "Devid",
+    rating: 5.0,
+    timeAgo: "1 weeks ago",
+    review:
+      "Awesome! I love this product. It's so comfortable and easy to wear.",
+    images: [product, product],
+    categories: ["Watches"],
+  },
+  {
+    id: 5,
+    name: "Jos Root",
+    rating: 4.1,
+    timeAgo: "2 weeks ago",
+    review: "Exceeded expectations.",
+    images: [product, product, product, product, product, product],
+    categories: ["Cosmetics"],
+  },
+  {
+    id: 6,
+    name: "Frank",
+    timeAgo: "2 weeks ago",
+    rating: 5,
+    review: "Fantastic!",
+    images: [product, product],
+    categories: ["Microphones", "Headphones"],
+  },
+  {
+    id: 7,
+    name: "Grace",
+    timeAgo: "1 month ago",
+    rating: 4,
+    review: "Exceeded expectations.",
+    images: [product, product, product, product],
+    categories: ["Electronics"],
   },
 ];
 
@@ -102,9 +151,13 @@ export default function Page() {
   const [openSection, setOpenSection] = useState<number | null>(1);
 
   const [activeTab, setActiveTab] = useState("description");
-  const [helpfulVotes, setHelpfulVotes] = useState<{ [key: number]: boolean }>(
-    {}
-  );
+
+  const [visibleReviews, setVisibleReviews] = useState(3);
+  const [helpfulVotes, setHelpfulVotes] = useState<Record<number, boolean>>({});
+
+  const handleSeeMore = () => {
+    setVisibleReviews(10);
+  };
 
   const handleHelpfulClick = (id: number) => {
     setHelpfulVotes((prev) => ({
@@ -259,7 +312,7 @@ export default function Page() {
         </div>
       </div>
 
-      <div className="mt-10 lg:mt-16">
+      <div className="mt-10 lg:mt-16 bg-[#FAFAFA] p-7 rounded-lg">
         <div className="border-b flex space-x-10 text-lg lg:text-2xl font-semibold text-[#424348]">
           <button
             onClick={() => setActiveTab("description")}
@@ -352,22 +405,19 @@ export default function Page() {
               </button>
             </div>
 
-            {/* Reviews */}
             <div className="space-y-6">
-              {reviews.map((review) => (
-                <div
-                  key={review.id}
-                  className="border p-4 rounded-lg bg-white shadow-sm"
-                >
-                  {/* Review Header */}
-                  <div className="flex justify-between items-start">
-                    <div>
-                      <p className="font-semibold">{review.name}</p>
-                      <p className="text-gray-500 text-sm italic">
+              {reviews.slice(0, visibleReviews).map((review) => (
+                <div key={review.id} className="border-b">
+                  <div>
+                    <div className="flex items-center justify-between gap-2">
+                      <p className="font-medium text-base lg:text-xl text-[#424348]">
+                        {review.name}
+                      </p>
+                      <p className="text-[#424348] text-body">
                         {review.timeAgo}
                       </p>
                     </div>
-                    <div className="flex">
+                    <div className="flex mt-3">
                       {[...Array(5)].map((_, index) => {
                         if (index + 1 <= review.rating) {
                           return (
@@ -389,39 +439,60 @@ export default function Page() {
                     </div>
                   </div>
 
-                  {/* Review Text */}
-                  <p className="mt-2 text-gray-600">{review.review}</p>
+                  <p className="mt-2 text-[#4B4B53] text-body">
+                    {review.review}
+                  </p>
 
-                  {/* Review Images */}
-                  <div className="mt-3 flex gap-2">
+                  <div className="mt-3 flex gap-6">
                     {review.images.map((img, index) => (
                       <Image
                         key={index}
                         src={img}
                         alt="review"
-                        width={64}
-                        height={64}
-                        className="w-16 h-16 rounded-md border object-cover"
+                        width={80}
+                        height={100}
+                        className="rounded-md p-3 border object-cover"
                       />
                     ))}
                   </div>
 
-                  {/* Helpful Button (Now Working) */}
-                  <button
-                    onClick={() => handleHelpfulClick(review.id)}
-                    className={`mt-3 flex items-center gap-1 text-gray-600 ${
-                      helpfulVotes[review.id] ? "text-blue-500" : ""
-                    }`}
-                  >
-                    <AiOutlineLike
-                      className={`transition ${
+                  <div className="flex items-center justify-between mt-6">
+                    <p className="text-body text-[#4B4B53]">
+                      Categories:
+                      <span className="text-body font-medium text-[#424348]">
+                        {review.categories.join(", ")}
+                      </span>
+                    </p>
+                    <button
+                      onClick={() => handleHelpfulClick(review.id)}
+                      className={`flex items-center gap-1 text-gray-600 ${
                         helpfulVotes[review.id] ? "text-blue-500" : ""
                       }`}
-                    />
-                    {helpfulVotes[review.id] ? "Helpful (1)" : "Helpful?"}
-                  </button>
+                    >
+                      <AiOutlineLike
+                        className={`transition ${
+                          helpfulVotes[review.id] ? "text-blue-500" : ""
+                        }`}
+                      />
+                      {helpfulVotes[review.id] ? "Helpful (1)" : "Helpful?"}
+                    </button>
+                  </div>
                 </div>
               ))}
+
+              {visibleReviews < reviews.length && (
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={handleSeeMore}
+                    className="text-base lg:text-xl text-[#4B4B53] hover:underline"
+                  >
+                    See more reviews
+                  </button>
+                  <span>
+                    <MdKeyboardArrowRight className="text-xl text-[#4B4B53]" />
+                  </span>
+                </div>
+              )}
             </div>
           </div>
         )}
