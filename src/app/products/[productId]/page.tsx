@@ -70,7 +70,7 @@ const sections = [
   },
 ];
 
-const reviews = [
+const initialReviews = [
   {
     id: 1,
     name: "Mahmudul Hasan",
@@ -152,11 +152,19 @@ export default function Page() {
 
   const [activeTab, setActiveTab] = useState("description");
 
+  const [reviews, setReviews] = useState(initialReviews);
   const [visibleReviews, setVisibleReviews] = useState(3);
   const [helpfulVotes, setHelpfulVotes] = useState<Record<number, boolean>>({});
 
+  const [newReview, setNewReview] = useState({
+    name: "",
+    rating: 0,
+    review: "",
+    images: [] as string[],
+  });
+
   const handleSeeMore = () => {
-    setVisibleReviews(10);
+    setVisibleReviews(reviews.length);
   };
 
   const handleHelpfulClick = (id: number) => {
@@ -164,6 +172,46 @@ export default function Page() {
       ...prev,
       [id]: !prev[id],
     }));
+  };
+
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    setNewReview((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleRatingClick = (rating: number) => {
+    setNewReview((prev) => ({ ...prev, rating }));
+  };
+
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      const imageUrls = Array.from(e.target.files).map((file) =>
+        URL.createObjectURL(file)
+      );
+      setNewReview((prev) => ({ ...prev, images: imageUrls }));
+    }
+  };
+
+  const handleSubmitReview = () => {
+    if (!newReview.name || newReview.rating === 0 || !newReview.review) {
+      alert("Please fill out all fields and select a rating.");
+      return;
+    }
+
+    const newReviewData = {
+      id: reviews.length + 1,
+      name: newReview.name,
+      timeAgo: "Just now",
+      rating: newReview.rating,
+      review: newReview.review,
+      images: newReview.images,
+      categories: ["User Review"],
+    };
+
+    setReviews([newReviewData, ...reviews]);
+    setNewReview({ name: "", rating: 0, review: "", images: [] });
   };
 
   return (
@@ -374,92 +422,58 @@ export default function Page() {
         )}
 
         {activeTab === "reviews" && (
-          <div className="mt-6 flex flex-col lg:flex-row gap-10">
-            {/* Rating Summary */}
-            <div>
-              <div className="space-y-4">
-                <div className="text-lg lg:text-2xl font-medium text-[#424348]">
-                  <span className="flex items-center gap-2">
-                    {[...Array(5)].map((_, i) => (
-                      <MdOutlineStar key={i} className="text-yellow-400" />
-                    ))}
-                    (13)
-                  </span>
-                </div>
-                <div className="space-y-1">
-                  {[5, 4, 3, 2, 1].map((star) => (
-                    <div key={star} className="flex items-center gap-2">
-                      <span className="text-sm">{star}</span>
-                      <div className="w-40 h-2 bg-gray-200 rounded-full">
-                        <div
-                          className="bg-black h-2 rounded-full"
-                          style={{ width: `${star * 20}%` }}
-                        ></div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-              <button className="mt-4 px-4 py-2 bg-black text-white rounded-lg">
-                Leave a Review
-              </button>
-            </div>
-
+          <div className="space-y-8">
             <div className="space-y-6">
               {reviews.slice(0, visibleReviews).map((review) => (
-                <div key={review.id} className="border-b">
-                  <div>
-                    <div className="flex items-center justify-between gap-2">
-                      <p className="font-medium text-base lg:text-xl text-[#424348]">
-                        {review.name}
-                      </p>
-                      <p className="text-[#424348] text-body">
-                        {review.timeAgo}
-                      </p>
-                    </div>
-                    <div className="flex mt-3">
-                      {[...Array(5)].map((_, index) => {
-                        if (index + 1 <= review.rating) {
-                          return (
-                            <FaStar key={index} className="text-yellow-400" />
-                          );
-                        } else if (index + 0.5 <= review.rating) {
-                          return (
-                            <FaStarHalfAlt
-                              key={index}
-                              className="text-yellow-400"
-                            />
-                          );
-                        } else {
-                          return (
-                            <FaRegStar key={index} className="text-gray-400" />
-                          );
-                        }
-                      })}
-                    </div>
+                <div key={review.id} className="border-b p-4">
+                  <div className="flex items-center justify-between">
+                    <p className="font-medium text-lg text-gray-800">
+                      {review.name}
+                    </p>
+                    <p className="text-gray-600 text-sm">{review.timeAgo}</p>
                   </div>
 
-                  <p className="mt-2 text-[#4B4B53] text-body">
-                    {review.review}
-                  </p>
+                  <div className="flex mt-2">
+                    {[...Array(5)].map((_, index) => {
+                      if (index + 1 <= review.rating) {
+                        return (
+                          <FaStar key={index} className="text-yellow-400" />
+                        );
+                      } else if (index + 0.5 <= review.rating) {
+                        return (
+                          <FaStarHalfAlt
+                            key={index}
+                            className="text-yellow-400"
+                          />
+                        );
+                      } else {
+                        return (
+                          <FaRegStar key={index} className="text-gray-400" />
+                        );
+                      }
+                    })}
+                  </div>
 
-                  <div className="mt-3 flex gap-6">
+                  <p className="mt-2 text-gray-700">{review.review}</p>
+
+                  <div className="mt-3 flex gap-3">
                     {review.images.map((img, index) => (
                       <Image
                         key={index}
                         src={img}
                         alt="review"
                         width={80}
-                        height={100}
-                        className="rounded-md p-3 border object-cover"
+                        height={80}
+                        className="rounded-md border object-cover"
                       />
                     ))}
                   </div>
 
-                  <div className="flex items-center justify-between mt-6">
-                    <p className="text-body text-[#4B4B53]">
+                  <div className="flex items-center justify-between mt-4">
+                    <p className="text-gray-600">
                       Categories:
-                      <span className="text-body font-medium text-[#424348]">
+                      <span className="font-medium text-gray-800">
+                        {" "}
                         {review.categories.join(", ")}
                       </span>
                     </p>
@@ -481,18 +495,80 @@ export default function Page() {
               ))}
 
               {visibleReviews < reviews.length && (
-                <div className="flex items-center gap-2">
-                  <button
-                    onClick={handleSeeMore}
-                    className="text-base lg:text-xl text-[#4B4B53] hover:underline"
-                  >
+                <div className="flex items-center gap-2 text-lg lg:text-xl text-[#424348]">
+                  <button onClick={handleSeeMore} className=" hover:underline">
                     See more reviews
                   </button>
                   <span>
-                    <MdKeyboardArrowRight className="text-xl text-[#4B4B53]" />
+                    <MdKeyboardArrowRight />
                   </span>
                 </div>
               )}
+
+              <div className="mt-6">
+                <h2 className="text-lg lg:text-2xl font-semibold mb-4 text-[#3A3A3F]">
+                  Review this product
+                </h2>
+
+                <input
+                  type="text"
+                  name="name"
+                  value={newReview.name}
+                  onChange={handleInputChange}
+                  placeholder="Your Name"
+                  className="w-full p-3 border rounded-md mb-3 bg-[#FAFAFA] text-[#424348] text-body"
+                />
+
+                <div className="flex gap-2 mb-3">
+                  {[1, 2, 3, 4, 5].map((star) => (
+                    <FaStar
+                      key={star}
+                      onClick={() => handleRatingClick(star)}
+                      className={`cursor-pointer text-2xl ${
+                        star <= newReview.rating
+                          ? "text-yellow-400"
+                          : "text-gray-300"
+                      }`}
+                    />
+                  ))}
+                </div>
+
+                <textarea
+                  name="review"
+                  value={newReview.review}
+                  onChange={handleInputChange}
+                  placeholder="Write your review..."
+                  className="w-full p-3 border rounded-md mb-3 bg-[#FAFAFA] text-[#424348] text-body"
+                  rows={4}
+                />
+
+                <input
+                  type="file"
+                  multiple
+                  accept="image/*"
+                  onChange={handleImageUpload}
+                  className="mb-3"
+                />
+                <div className="flex gap-3">
+                  {newReview.images.map((img, index) => (
+                    <Image
+                      key={index}
+                      src={img}
+                      alt="uploaded"
+                      width={80}
+                      height={80}
+                      className="rounded-md"
+                    />
+                  ))}
+                </div>
+
+                <button
+                  onClick={handleSubmitReview}
+                  className="border-2 bg-white text-black text-body font-medium p-3 rounded-md hover:bg-black hover:text-white transition mt-3"
+                >
+                  Submit Review
+                </button>
+              </div>
             </div>
           </div>
         )}

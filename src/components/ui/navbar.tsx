@@ -47,7 +47,7 @@ const Navbar = () => {
 
           <div className="flex items-center space-x-6">
             <Link
-              href="/login"
+              href="/like"
               className="border border-[#CECFD3] rounded-full p-2"
             >
               <GoHeart className="text-[#4B4B53] text-2xl" />
@@ -108,7 +108,7 @@ const Navbar = () => {
 
           <div className="flex justify-center items-center space-x-6">
             <Link
-              href="/login"
+              href="/like"
               className="border border-[#CECFD3] rounded-full p-2"
             >
               <GoHeart className="text-[#4B4B53] text-2xl" />
