@@ -245,7 +245,9 @@ export default function Page() {
 
             <div className="border-2 w-full bg-black text-center border-black py-4 rounded-lg ">
               <button className=" text-white text-lg lg:text-xl font-semibold">
-                Place Your Order
+                <a href="http://localhost:3000/cart/thankyou">
+                  Place Your Order
+                </a>
               </button>
               <p className="text-white text-body">Total: $2000.00</p>
             </div>
