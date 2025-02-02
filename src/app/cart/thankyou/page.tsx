@@ -16,7 +16,7 @@ export default function page() {
       </div>
       <div className="flex gap-4 mt-6 justify-center">
         <button className="border-2  border-black px-4 py-2 rounded-lg flex items-center justify-center gap-2 text-black">
-          <a href="http://localhost:3000/order">View Order</a>
+          <a href="https://rabfy.vercel.app/order">View Order</a>
         </button>
         <button className="border-2 bg-black border-black px-4 py-2 rounded-lg flex items-center justify-center gap-2 text-white transition">
           Continue Shopping

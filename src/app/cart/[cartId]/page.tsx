@@ -245,7 +245,7 @@ export default function Page() {
 
             <div className="border-2 w-full bg-black text-center border-black py-4 rounded-lg ">
               <button className=" text-white text-lg lg:text-xl font-semibold">
-                <a href="http://localhost:3000/cart/thankyou">
+                <a href="https://rabfy.vercel.app/cart/thankyou">
                   Place Your Order
                 </a>
               </button>
