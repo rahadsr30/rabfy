@@ -43,6 +43,7 @@ export default function Hero() {
 
     return () => clearInterval(interval);
   }, []);
+
   return (
     <header>
       <div className="relative w-full overflow-hidden">
