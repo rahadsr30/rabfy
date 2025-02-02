@@ -21,10 +21,10 @@ export default {
       addUtilities({});
       addComponents({
         ".text-heading": {
-          "@apply text-[24px] lg:text-[60px] font-bold": {},
+          "@apply text-[20px] md:text-[36px] lg:text-[60px] font-bold": {},
         },
         ".text-hero": {
-          "@apply text-[16px] leading-[20px] font-normal": {},
+          "@apply text-[14px] md:text-[16px] leading-[20px] font-normal": {},
         },
         ".text-title": {
           "@apply text-[28px] lg:text-[48px] leading-[60px] font-bold": {},
