@@ -206,7 +206,7 @@ export default function Page() {
       timeAgo: "Just now",
       rating: newReview.rating,
       review: newReview.review,
-      images: newReview.images.map((img) => ({ src: img } as StaticImageData)), // Convert strings to StaticImageData
+      images: newReview.images.map((img) => ({ src: img } as StaticImageData)),
       categories: ["User Review"],
     };
 
@@ -218,7 +218,7 @@ export default function Page() {
     <section className="wrapper py-10 lg:py-16">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16">
         <div>
-          <div className="border-2 rounded-lg flex justify-center gap-8 p-16 items-center">
+          <div className="border-2 rounded-lg flex flex-col lg:flex-row  justify-center gap-8 p-7 lg:p-16 items-center">
             <span className="text-[#ACADB4] text-5xl bg-white shadow-md p-2 rounded-full">
               <IoIosArrowRoundBack />
             </span>

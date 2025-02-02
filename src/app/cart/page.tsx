@@ -88,14 +88,14 @@ export default function CartPage() {
 
   return (
     <div className="wrapper py-section grid gap-8 grid-cols-1 lg:grid-cols-3">
-      <div className="lg:col-span-2">
+      <div className="lg:col-span-2 hidden md:block">
         {cart.length === 0 ? (
           <p className="text-[#4B4B53]">Your cart is empty.</p>
         ) : (
           <div className="border-2 rounded-lg">
             <table className="w-full border-collapse">
-              <thead className="border-b border-[#CECFD3] ">
-                <tr className="text-left ">
+              <thead className="border-b border-[#CECFD3]">
+                <tr className="text-left">
                   <th className="p-4 text-[#28272A] text-body font-medium">
                     Select
                   </th>
@@ -116,12 +116,12 @@ export default function CartPage() {
               <tbody>
                 {cart.map((item) => (
                   <tr key={item.id} className="border-b">
-                    <td className="p-4  text-center">
+                    <td className="p-4 text-center">
                       <input
                         type="checkbox"
                         checked={selectedItems.includes(item.id)}
                         onChange={() => handleCheckboxChange(item.id)}
-                        className="w-4 h-4  cursor-pointer"
+                        className="w-4 h-4 cursor-pointer"
                       />
                     </td>
 
@@ -177,7 +177,63 @@ export default function CartPage() {
         )}
       </div>
 
-      <div className="p-6 h-[300] rounded-lg border">
+      <div className="md:hidden flex flex-col gap-4">
+        {cart.map((item) => (
+          <div key={item.id} className="border p-4 rounded-lg shadow-md">
+            <div className="flex items-center gap-4">
+              <Image
+                src={item.image}
+                alt={item.name}
+                width={60}
+                height={60}
+                className="rounded border p-2"
+              />
+              <div>
+                <p className="text-lg font-semibold">{item.name}</p>
+                <p className="text-sm text-gray-600">
+                  ${item.price.toFixed(2)}
+                </p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-3 mt-3 text-sm">
+              <p>
+                <span className="font-medium">Quantity:</span> {item.quantity}
+              </p>
+              <p>
+                <span className="font-medium">Total:</span> $
+                {(item.price * item.quantity).toFixed(2)}
+              </p>
+            </div>
+
+            <div className="flex justify-between mt-4">
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => decreaseQuantity(item.id)}
+                  className="p-2 bg-gray-200 rounded"
+                >
+                  <AiOutlineMinus />
+                </button>
+                <span>{item.quantity}</span>
+                <button
+                  onClick={() => increaseQuantity(item.id)}
+                  className="p-2 bg-gray-200 rounded"
+                >
+                  <AiOutlinePlus />
+                </button>
+              </div>
+              <button
+                onClick={() => removeItem(item.id)}
+                className="text-red-500 hover:text-red-700"
+              >
+                <FaTrashAlt size={18} />
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div className="p-6 h-[300px] rounded-lg border">
         <h3 className="text-lg lg:text-2xl text-[#28272A] font-bold border-b mb-4">
           Order Summary
         </h3>
