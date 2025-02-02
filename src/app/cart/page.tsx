@@ -144,7 +144,7 @@ export default function CartPage() {
                     </td>
 
                     <td className="p-4 text-center">
-                      <div className="flex items-center justify-center gap-4 border w-max px-3 py-2 rounded-lg mt-4 text-[#4B4B53]">
+                      <div className="flex items-center justify-center gap-4 border w-max px-3 py-2 rounded-lg text-[#4B4B53]">
                         <button onClick={() => decreaseQuantity(item.id)}>
                           <AiOutlineMinus />
                         </button>
@@ -157,7 +157,6 @@ export default function CartPage() {
                       </div>
                     </td>
 
-                    {/* Total Price per Item */}
                     <td className="p-4 text-center font-medium text-body text-[#28272A]">
                       ${(item.price * item.quantity).toFixed(2)}
                     </td>

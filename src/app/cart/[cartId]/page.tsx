@@ -29,7 +29,6 @@ export default function CheckoutPage() {
     <div className="max-w-4xl mx-auto p-6 mt-10 bg-white shadow-lg rounded-lg">
       <h2 className="text-2xl font-bold mb-6 text-gray-800">Checkout</h2>
       <div className="grid md:grid-cols-2 gap-6">
-        {/* Billing Information */}
         <div>
           <h3 className="text-xl font-semibold mb-4">Billing Information</h3>
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -81,7 +80,6 @@ export default function CheckoutPage() {
           </form>
         </div>
 
-        {/* Payment Information */}
         <div>
           <h3 className="text-xl font-semibold mb-4">Payment Details</h3>
           <form onSubmit={handleSubmit} className="space-y-4">

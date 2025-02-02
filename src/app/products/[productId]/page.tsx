@@ -1,5 +1,5 @@
 "use client";
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 import React, { useState } from "react";
 import product from "@/assets/products1.png";
 import { IoIosArrowRoundBack } from "react-icons/io";
@@ -206,7 +206,7 @@ export default function Page() {
       timeAgo: "Just now",
       rating: newReview.rating,
       review: newReview.review,
-      images: newReview.images,
+      images: newReview.images.map((img) => ({ src: img } as StaticImageData)), // Convert strings to StaticImageData
       categories: ["User Review"],
     };
 
@@ -422,10 +422,40 @@ export default function Page() {
         )}
 
         {activeTab === "reviews" && (
-          <div className="space-y-8">
+          <div className="mt-6 flex flex-col lg:flex-row gap-14">
+            <div>
+              <div className="space-y-4">
+                <div className="text-lg lg:text-2xl font-medium text-[#424348]">
+                  <span className="flex items-center gap-2">
+                    {[...Array(5)].map((_, i) => (
+                      <MdOutlineStar key={i} className="text-yellow-400" />
+                    ))}
+                    (13)
+                  </span>
+                </div>
+
+                <div className="space-y-1">
+                  {[5, 4, 3, 2, 1].map((star) => (
+                    <div key={star} className="flex items-center gap-2">
+                      <span className="text-sm">{star}</span>
+                      <div className="w-40 h-2 bg-gray-200 rounded-full">
+                        <div
+                          className="bg-black h-2 rounded-full"
+                          style={{ width: `${star * 20}%` }}
+                        ></div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <button className="mt-4 px-4 py-2 bg-black text-body text-white rounded-lg">
+                Leave a Review
+              </button>
+            </div>
             <div className="space-y-6">
               {reviews.slice(0, visibleReviews).map((review) => (
-                <div key={review.id} className="border-b p-4">
+                <div key={review.id} className="border-b">
                   <div className="flex items-center justify-between">
                     <p className="font-medium text-lg text-gray-800">
                       {review.name}
