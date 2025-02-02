@@ -450,7 +450,7 @@ export default function Page() {
               </div>
 
               <button className="mt-4 px-4 py-2 bg-black text-body text-white rounded-lg">
-                Leave a Review
+                <a href="#review-form">Leave a Review</a>
               </button>
             </div>
             <div className="space-y-6">
@@ -535,7 +535,7 @@ export default function Page() {
                 </div>
               )}
 
-              <div className="mt-6">
+              <div id="review-form" className="mt-6">
                 <h2 className="text-lg lg:text-2xl font-semibold mb-4 text-[#3A3A3F]">
                   Review this product
                 </h2>
