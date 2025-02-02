@@ -162,11 +162,9 @@ export default function Page() {
         </table>
       </div>
 
-      {/* Mobile Layout (Card View) */}
       <div className="md:hidden flex flex-col gap-4">
         {orders.map((order) => (
           <div key={order.id} className="border p-4 rounded-lg shadow-md">
-            {/* Product & Image */}
             <div className="flex items-center gap-4">
               <Image
                 src={order.image}
@@ -181,7 +179,6 @@ export default function Page() {
               </div>
             </div>
 
-            {/* Order Details */}
             <div className="grid grid-cols-2 gap-3 mt-3 text-sm">
               <p>
                 <span className="font-medium">Price:</span> ${order.price}

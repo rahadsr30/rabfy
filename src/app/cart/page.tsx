@@ -270,7 +270,7 @@ export default function CartPage() {
               }`}
               disabled={selectedItems.length === 0}
             >
-              Checkout
+              <a href="http://localhost:3000/cart/cartId">Checkout</a>
             </button>
           </div>
         )}

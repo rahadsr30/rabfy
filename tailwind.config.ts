@@ -35,6 +35,9 @@ export default {
         ".text-product": {
           "@apply text-[16px] lg:text-[18px] leading-[24px] font-medium": {},
         },
+        ".text-small": {
+          "@apply font-medium text-[12px] lg:text-sm leading-[20px]": {},
+        },
         ".wrapper": {
           "@apply max-w-[1220px] w-full mx-auto px-4": {},
         },
